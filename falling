@@ -1,0 +1,67 @@
+//create a Global Array
+var snow = [];
+
+//define the number of simultaneous objects 
+const snowVolume = 20;
+
+function setup() {
+  createCanvas(400, 400);
+  
+  //uses a loop to create multiple objects
+  for (var i = 0 ; i < snowVolume ; i++){
+    snow[i] = new snowFlake(); 
+  }
+  
+}
+
+function draw() {
+  background(220);
+  
+  //uses a loop through all elements of the array
+  for (var i = 0 ; i < snowVolume ; i++){
+   snow[i].display();
+   snow[i].fall();
+    
+    if (snow[i].y > height){
+     snow[i] = new snowFlake(); 
+    }
+    
+  }
+  
+  
+}
+
+function mousePressed() {
+  
+   for (var i = 0 ; i < snowVolume ; i++){
+     
+     if(dist(mouseX, mouseY,snow[i].x, snow[i].y) <= snow[i].diameter){
+       snow[i] = new snowFlake();
+       print("Hit");
+   }
+  
+}
+  
+}
+
+class snowFlake{
+   constructor() {
+    this.x = random(width);
+    this.y = random(0, 100);
+    this.diameter = random(5, 15);
+    this.speed = 1;
+    //sets fall speed based on diameter 
+    this.fallSpeed = (this.diameter * .1); 
+  } 
+  
+    fall() {
+    this.x += random(-this.speed, this.speed);
+    this.y = this.y +this.fallSpeed;
+  }
+  
+    display() {
+    noStroke();
+    ellipse(this.x, this.y, this.diameter, this.diameter);
+  }
+  
+}
