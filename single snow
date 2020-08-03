@@ -1,0 +1,55 @@
+//create a global Variable
+var snow;
+
+function setup() {
+  createCanvas(400, 400);
+  
+    //creates an object, based on the snowFlake class, and attribuite it to the variable.
+    snow = new snowFlake();
+    
+  
+}
+
+function draw() {
+  background(220);
+  
+  //calls the display function of the given object.
+  snow.display();
+  
+  //calls the function that makes the Object moves.  
+  snow.fall();
+    
+  //if the object "falls" off the screen, it creates a new object and attribuites it to the existing Global variable.
+  if (snow.y > height){
+   snow = new snowFlake(); 
+  }
+    
+  }
+  
+  
+
+//snowFlake class
+class snowFlake{
+  
+  //this function is called when the Object is created
+   constructor() {
+    this.x = random(width);
+    this.y = random(0, 10);
+    this.diameter = random(5, 15);
+    this.speed = 1;
+  } 
+  
+    //this is a public function that changes the position of the Object
+    fall() {
+    this.x += random(-this.speed, this.speed);
+    this.y = this.y + 5;
+  }
+  
+      //this is a public function that displays the Object
+    display() {
+    noStroke();
+    ellipse(this.x, this.y, this.diameter, this.diameter);
+  }
+  
+  
+}
